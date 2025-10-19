@@ -1,0 +1,12 @@
+{% extends "boutique/base.html" %}
+
+{% block content %}
+    <h1 style="text-align:center;">Confirmation de commande</h1>
+    <p style="text-align:center;">
+        Merci {{ user.username }}, votre commande a bien été enregistrée ✅
+    </p>
+
+    <p style="text-align:center;">
+        <a href="{% url 'acceuil' %}">Retour à l'accueil</a>
+    </p>
+{% endblock %}

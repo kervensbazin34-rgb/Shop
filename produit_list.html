@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* centre tout horizontalement */
+        }
+
+        h1 {
+            margin-bottom: 40px;
+        }
+
+        .produits-container {
+            display: flex;
+            flex-direction: column; /* les produits s'empilent verticalement */
+            align-items: center;    /* centre chaque produit */
+            gap: 20px;              /* espace entre les produits */
+        }
+
+        .produit {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 250px;
+            text-align: center;     /* centre texte à l’intérieur */
+        }
+
+        .produit h2 {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        .produit p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .produit button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .produit button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+ <h1>Liste des Produits</h1>
+<ul>
+    {% for produit in produits %}
+        <li>{{ produit.nom }} - {{ produit.prix }} $</li>
+    {% empty %}
+        <li>Aucun produit disponible</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

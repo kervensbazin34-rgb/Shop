@@ -1,0 +1,15 @@
+{% extends "boutique/base.html" %}
+
+{% block content %}
+  <h1>Mes commandes</h1>
+
+  {% if commandes %}
+      <ul>
+      {% for commande in commandes %}
+          <li>Commande #{{ commande.id }} - {{ commande.date_commande }}</li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>Aucune commande trouvée.</p>
+  {% endif %}
+{% endblock %}

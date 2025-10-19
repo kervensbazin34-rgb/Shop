@@ -1,0 +1,9 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Nom:</label> {{ form.nom }}<br>
+    <label>Prix:</label> {{ form.prix }}<br>
+    <label>Stock:</label> {{ form.stock }}<br>
+    <label>Image:</label> {{ form.image }}<br>
+    <label>Catégorie:</label> {{ form.categorie }}<br> <!-- dropdown catégorie -->
+    <button type="submit">Ajouter produit</button>
+</form>

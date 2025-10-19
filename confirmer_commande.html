@@ -1,0 +1,8 @@
+{% extends "boutique/base.html" %}
+
+{% block content %}
+<h1 style="text-align:center;">Commande Confirmée !</h1>
+<p style="text-align:center;">Merci pour votre achat.</p>
+<a href="{% url 'acceuil' %}" style="text-align:center; display:block;">Retour à l'accueil</a>
+<a href="{% url 'confirmation_commande' %}">Voir la confirmation</a>
+{% endblock %}

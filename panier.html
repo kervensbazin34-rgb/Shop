@@ -1,0 +1,149 @@
+{% extends "boutique/base.html" %}
+
+{% block content %}
+
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+header { 
+    background: #4CAF50; 
+    color: white; 
+    text-align: center; 
+    padding: 15px;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+footer { 
+    background: #4CAF50; 
+    color: white; 
+    text-align: center; 
+    padding: 15px; 
+}
+
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    margin-top: 20px; 
+}
+
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 10px; 
+    text-align: center; 
+    vertical-align: middle;
+}
+
+img.produit-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+a.supprimer { 
+    background: #f44336; 
+    color: white; 
+    padding: 5px 10px; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    font-size: 14px;
+}
+
+a.supprimer:hover {
+    background: #d32f2f;
+}
+
+button.confirmer { 
+    background: #4CAF50; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-top: 15px;
+}
+
+button.confirmer:hover { 
+    background: #45a049; 
+}
+
+.center { 
+    text-align: center; 
+    margin-top: 15px; 
+}
+</style>
+
+<main>
+    {% if produits_panier %}
+        <!-- Tablo Panier -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in produits_panier %}
+                <tr>
+                    <td>
+                        {% if ligne.produit.image %}
+                            <img src="{{ ligne.produit.image.url }}" alt="{{ ligne.produit.nom }}" class="produit-image">
+                        {% else %}
+                            <img src="/static/images/default.png" alt="Image par défaut" class="produit-image">
+                        {% endif %}
+                    </td>
+                    <td>{{ ligne.produit.nom }}</td>
+                    <td>{{ ligne.quantite }}</td>
+                    <td>{{ ligne.produit.prix }} HTG</td>
+                    <td>
+                        <a href="{% url 'boutique:supprimer_du_panier' ligne.produit.id %}" class="supprimer">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Total -->
+        <p class="center"><strong>Total: {{ total_global }} HTG</strong></p>
+
+        <!-- Bouton confirmer -->
+        <form method="POST" action="{% url 'boutique:confirmer_commande' %}" class="center">
+            {% csrf_token %}
+            <button type="submit" class="confirmer">Confirmer la commande</button>
+        </form>
+
+        <!-- Bouton Retour à l'accueil -->
+        <div class="center" style="margin-bottom: 10px;">
+            <a href="{% url 'boutique:acceuil' %}" 
+               style="background:#1b1d1b; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; display:inline-block;">
+               Retour à l'accueil
+            </a>
+        </div>
+
+    {% else %}
+        <p class="center">Panier vide.</p>
+        <div class="center" style="margin-bottom: 10px;">
+            <a href="{% url 'boutique:acceuil' %}" 
+               style="background:#111111; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; display:inline-block;">
+               Retour à l'accueil
+            </a>
+        </div>
+    {% endif %}
+</main>
+
+{% endblock %}

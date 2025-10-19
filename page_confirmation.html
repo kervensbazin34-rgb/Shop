@@ -1,0 +1,9 @@
+{% extends "boutique/base.html" %}
+
+{% block content %}
+<h1>✅ Commande confirmée !</h1>
+<p>Merci d'avoir passé votre commande. Un email de confirmation vous sera envoyé bientôt.</p>
+
+<a href="{% url 'boutique:mes_commandes' %}">Voir mes commandes</a><br>
+<a href="{% url 'boutique:acceuil' %}">Retour à l'accueil</a>
+{% endblock %}

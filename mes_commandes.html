@@ -1,0 +1,82 @@
+<!-- mes_commandes.html -->
+{% extends "boutique/base.html" %}
+{% block content %}
+<div class="header-commandes">
+    <h2>Mes commandes</h2>
+    <a href="{% url 'boutique:acceuil' %}" class="btn-retour">Retour à l'accueil</a>
+</div>
+
+<div class="commandes-container">
+    {% for commande in commandes %}
+    <div class="commande-card">
+        <div class="commande-header">
+            <strong>Commande #{{ commande.id }}</strong> - {{ commande.date|date:"d/m/Y H:i" }} - Total: {{ commande.total }} HTG
+        </div>
+        <ul class="ligne-commandes">
+            {% for ligne in commande.lignes.all %}
+            <li>{{ ligne.produit.nom }} (x{{ ligne.quantite }}) → {{ ligne.total|floatformat:2 }} HTG</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+    <p>Vous n'avez passé aucune commande pour le moment.</p>
+    {% endfor %}
+</div>
+
+<style>
+.header-commandes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.header-commandes h2 {
+    margin: 0;
+}
+
+.btn-retour {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-retour:hover {
+    background-color: #45a049;
+}
+
+.commandes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.commande-card {
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f9fff9;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+}
+
+.commande-header {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #2e7d32;
+}
+
+.ligne-commandes li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.ligne-commandes li:last-child {
+    border-bottom: none;
+}
+</style>
+{% endblock %}
